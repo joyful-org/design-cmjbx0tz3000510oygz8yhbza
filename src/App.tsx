@@ -1,34 +1,36 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react"
+import HomeScreen from "./components/HomeScreen"
+import SendScreen from "./components/SendScreen"
+import ReceiveScreen from "./components/ReceiveScreen"
+import ActivityScreen from "./components/ActivityScreen"
+import SettingsScreen from "./components/SettingsScreen"
+
+export type Screen = "home" | "send" | "receive" | "activity" | "settings"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentScreen, setCurrentScreen] = useState<Screen>("home")
+
+  const renderScreen = () => {
+    switch (currentScreen) {
+      case "home":
+        return <HomeScreen onNavigate={setCurrentScreen} />
+      case "send":
+        return <SendScreen onNavigate={setCurrentScreen} />
+      case "receive":
+        return <ReceiveScreen onNavigate={setCurrentScreen} />
+      case "activity":
+        return <ActivityScreen onNavigate={setCurrentScreen} />
+      case "settings":
+        return <SettingsScreen onNavigate={setCurrentScreen} />
+      default:
+        return <HomeScreen onNavigate={setCurrentScreen} />
+    }
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="min-h-screen bg-background text-foreground">
+      {renderScreen()}
+    </div>
   )
 }
 
