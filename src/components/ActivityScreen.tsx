@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowUpRight, ArrowDownLeft, RefreshCw, Filter, ChevronRight } from "lucide-react"
+import { ArrowLeft, ArrowUpRight, ArrowDownLeft, RefreshCw, Filter } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Badge } from "../components/ui/badge"
