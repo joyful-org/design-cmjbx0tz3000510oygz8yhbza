@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownLeft, History, Settings, TrendingUp, TrendingDown, Wallet, Eye, EyeOff, Bell } from "lucide-react"
+import { ArrowUpRight, ArrowDownLeft, History, Settings, TrendingUp, TrendingDown, Wallet, Eye, EyeOff, Bell, Sparkles } from "lucide-react"
 import { Button } from "../components/ui/button"
 import { Card, CardContent } from "../components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
@@ -46,12 +46,26 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
         </div>
       </div>
 
-      {/* Balance Card */}
+      {/* Balance Card - Improved Design */}
       <div className="px-4 pb-4">
-        <Card className="bg-primary text-primary-foreground overflow-hidden">
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between mb-2">
-              <p className="text-sm opacity-90">Total Balance</p>
+        <Card className="relative overflow-hidden border-0 shadow-lg">
+          {/* Gradient Background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary to-secondary" />
+          
+          {/* Decorative Elements */}
+          <div className="absolute top-0 right-0 w-32 h-32 bg-primary-foreground/10 rounded-full -translate-y-1/2 translate-x-1/2" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-primary-foreground/10 rounded-full translate-y-1/2 -translate-x-1/2" />
+          <div className="absolute top-1/2 right-8 w-16 h-16 bg-primary-foreground/5 rounded-full" />
+          
+          <CardContent className="relative p-6 text-primary-foreground">
+            {/* Top Row */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-2">
+                <div className="h-8 w-8 rounded-full bg-primary-foreground/20 flex items-center justify-center">
+                  <Wallet className="h-4 w-4" />
+                </div>
+                <span className="text-sm font-medium opacity-90">Main Wallet</span>
+              </div>
               <Button
                 variant="ghost"
                 size="icon"
@@ -61,44 +75,56 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
                 {balanceVisible ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
               </Button>
             </div>
-            <h1 className="text-4xl font-bold mb-1">
-              {balanceVisible ? totalBalance : "••••••"}
-            </h1>
-            <div className="flex items-center gap-2">
-              <TrendingUp className="h-4 w-4" />
-              <span className="text-sm">+$234.56 (2.94%) today</span>
+            
+            {/* Balance */}
+            <div className="mb-4">
+              <p className="text-sm opacity-80 mb-1">Total Balance</p>
+              <h1 className="text-4xl font-bold tracking-tight">
+                {balanceVisible ? totalBalance : "••••••"}
+              </h1>
+            </div>
+            
+            {/* Stats Row */}
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 bg-primary-foreground/15 rounded-full px-3 py-1.5">
+                <TrendingUp className="h-4 w-4" />
+                <span className="text-sm font-medium">+$234.56</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Sparkles className="h-4 w-4 opacity-80" />
+                <span className="text-sm opacity-80">2.94% today</span>
+              </div>
+            </div>
+            
+            {/* Quick Actions in Card */}
+            <div className="flex gap-2 mt-6 pt-4 border-t border-primary-foreground/20">
+              <Button
+                variant="ghost"
+                className="flex-1 h-12 bg-primary-foreground/15 hover:bg-primary-foreground/25 text-primary-foreground"
+                onClick={() => onNavigate("send")}
+              >
+                <ArrowUpRight className="h-4 w-4 mr-2" />
+                Send
+              </Button>
+              <Button
+                variant="ghost"
+                className="flex-1 h-12 bg-primary-foreground/15 hover:bg-primary-foreground/25 text-primary-foreground"
+                onClick={() => onNavigate("receive")}
+              >
+                <ArrowDownLeft className="h-4 w-4 mr-2" />
+                Receive
+              </Button>
+              <Button
+                variant="ghost"
+                className="flex-1 h-12 bg-primary-foreground/15 hover:bg-primary-foreground/25 text-primary-foreground"
+                onClick={() => onNavigate("activity")}
+              >
+                <History className="h-4 w-4 mr-2" />
+                Activity
+              </Button>
             </div>
           </CardContent>
         </Card>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="px-4 pb-6">
-        <div className="flex gap-3">
-          <Button
-            className="flex-1 h-14 flex-col gap-1"
-            onClick={() => onNavigate("send")}
-          >
-            <ArrowUpRight className="h-5 w-5" />
-            <span className="text-xs">Send</span>
-          </Button>
-          <Button
-            className="flex-1 h-14 flex-col gap-1"
-            variant="secondary"
-            onClick={() => onNavigate("receive")}
-          >
-            <ArrowDownLeft className="h-5 w-5" />
-            <span className="text-xs">Receive</span>
-          </Button>
-          <Button
-            className="flex-1 h-14 flex-col gap-1"
-            variant="outline"
-            onClick={() => onNavigate("activity")}
-          >
-            <History className="h-5 w-5" />
-            <span className="text-xs">Activity</span>
-          </Button>
-        </div>
       </div>
 
       {/* Assets */}
